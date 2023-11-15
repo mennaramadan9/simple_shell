@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * execute_command - Execute a command with arguments using execve.
- * @command: The path of the command
- * @args: an array of strings
- * Return: 0 on success, 1 on error.
+ * execute_command - function
+ * @command: com
+ * @args: args
+ * Return: Always 0.
  */
 int execute_command(char *command, char *args[])
 {
@@ -27,28 +27,6 @@ exit(EXIT_FAILURE);
 else
 {
 wait(&status);
-}
-
-return (0);
-}
-
-/**
- * main - Program entry point.
- *
- * Return: 0 on success, 1 on error.
- */
-int main(void)
-{
-char *ls_args[] = {"/bin/ls", "-l", "/tmp", NULL};
-int count;
-
-for (count = 0; count < 5; count++)
-{
-if (execute_command(ls_args[0], ls_args) != 0)
-{
-fprintf(stderr, "Error executing command.\n");
-return (1);
-}
 }
 
 return (0);

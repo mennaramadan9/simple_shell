@@ -1,19 +1,16 @@
 #include "main.h"
 
 /**
- * main - execve example
- *
- * Return: Always 0.
+ * execute_execve_example - function
  */
-int main(void)
+void execute_execve_example(void)
 {
-	char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
+char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
 
-	printf("Before execve\n");
-	if (!execve(argv[0], argv, NULL))
-	{
-		perror("Error:");
-	}
-	printf("After execve\n");
-	return (0);
+printf("Before execve\n");
+if (!execve(argv[0], argv, NULL))
+{
+perror("Error:");
+}
+printf("After execve\n");
 }

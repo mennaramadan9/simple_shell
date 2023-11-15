@@ -1,20 +1,25 @@
 #include "main.h"
 
 /**
- * main - Program entry point.
- *
- * @ac: Command line argument count.
- * @av: Command line arguments.
- *
- * Return: Always 0.
+ * _strlen_recursion - Program entry point.
+ * @s: s
+ * Return: size_t.
  */
-int main(int ac, char **av)
+size_t _strlen_recursion(char *s)
 {
-	int i = 0;
-	(void) ac;
+if (*s == '\0')
+return (0);
 
-	for (; av[i]; i++)
-		write(STDOUT_FILENO, av[i], _strlen_recursion(av[i]));
+return (1 + _strlen_recursion(s + 1));
+}
 
-	return (0);
+/**
+ * print_arguments - Program entry point.
+ * @av: av
+ */
+void print_arguments(char **av)
+{
+int i = 0;
+for (; av[i]; i++)
+write(STDOUT_FILENO, av[i], _strlen_recursion(av[i]));
 }

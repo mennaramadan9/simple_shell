@@ -30,27 +30,3 @@ free(line);
 fclose(file);
 return (0);
 }
-
-/**
- * main - Program entry point.
- * @argc: Command line argument count.
- * @argv: Command line argument vector.
- *
- * Return: 0 on success, -1 on error.
- */
-int main(int argc, char *argv[])
-{
-if (argc != 2)
-{
-fprintf(stderr, "Usage: %s <file>\n", argv[0]);
-return (-1);
-}
-
-if (display_file_content(argv[1]) == -1)
-{
-fprintf(stderr, "Error displaying file content.\n");
-return (-1);
-}
-
-return (0);
-}
