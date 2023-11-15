@@ -2,7 +2,8 @@
 
 /**
  * execute_command - Execute a command with arguments using execve.
- *
+ * @command: The path of the command
+ * @*args: an array of strings
  * Return: 0 on success, 1 on error.
  */
 int execute_command(char *command, char *args[])
