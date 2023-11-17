@@ -1,16 +1,14 @@
 #include "main.h"
 
 /**
- * execute_execve_example - function
+ * execute_command - function
+ * @command: command
+ * @args: an array of strings.
+ * Return: 0 on success, 1 on error.
  */
-void execute_execve_example(void)
+void execute_commandd(char *command, char *args[])
 {
-char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
-
-printf("Before execve\n");
-if (!execve(argv[0], argv, NULL))
-{
-perror("Error:");
-}
-printf("After execve\n");
+execve(command, args, NULL);
+perror("execve");
+exit(EXIT_FAILURE);
 }

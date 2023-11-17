@@ -1,13 +1,9 @@
 #include "main.h"
 
 /**
- * print_pid - PID
+ * display_prompt - display
  */
-void print_pid(void)
+void print_process(void)
 {
-pid_t my_pid;
-
-my_pid = getppid();
-print_number(my_pid);
-_putchar('\n');
+write(STDOUT_FILENO, "#cisfun$ ", 9);
 }

@@ -1,25 +1,17 @@
 #include "main.h"
+#include <unistd.h>
 
 /**
- * _strlen_recursion - Program entry point.
- * @s: s
- * Return: size_t.
+ * execute_command - Execute a command with arguments using execve.
+ * @command: The path of the command
+ * @args: An array of strings
+ *
+ * Return: 0 on success, 1 on error.
  */
-size_t _strlen_recursion(char *s)
+void execute_command(char *command, char *args[])
 {
-if (*s == '\0')
-return (0);
-
-return (1 + _strlen_recursion(s + 1));
-}
-
-/**
- * print_arguments - Program entry point.
- * @av: av
- */
-void print_arguments(char **av)
-{
-int i = 0;
-for (; av[i]; i++)
-write(STDOUT_FILENO, av[i], _strlen_recursion(av[i]));
+extern char **environ;
+execve(command, args, environ);
+perror("execve");
+exit(EXIT_FAILURE);
 }

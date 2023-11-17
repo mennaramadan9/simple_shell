@@ -1,33 +1,20 @@
 #include "main.h"
 
 /**
- * execute_command - function
- * @command: com
- * @args: args
- * Return: Always 0.
+ * execute_command - Execute a command with arguments using execve.
+ * @command: The path of the command.
+ * @args: an array of strings.
  */
-int execute_command(char *command, char *args[])
-{
-pid_t child_pid;
-int status;
-
-child_pid = fork();
-if (child_pid == -1)
-{
-perror("fork");
-return (1);
-}
-
-if (child_pid == 0)
+/**
+ * execute_command - Execute a command with arguments using execve.
+ * @command: The path of the command
+ * @args: An array of strings
+ *
+ * Return: void
+ */
+void execute(char *command, char *args[])
 {
 execve(command, args, NULL);
 perror("execve");
 exit(EXIT_FAILURE);
-}
-else
-{
-wait(&status);
-}
-
-return (0);
 }
