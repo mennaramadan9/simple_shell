@@ -1,13 +1,65 @@
 #include "main.h"
-#define MAX_INPUT_SIZE 1024
 
 /**
  * display_prompt - function
  */
 void display_prompt(void)
 {
-printf("($) ");
+printf("#cisfun$ ");
 fflush(stdout);
+}
+
+/**
+ * command_exists - function
+ * @command: command
+ * Return: 0
+ */
+int command_exists(char *command)
+{
+char **args = malloc(2 * sizeof(char*));
+int status, result;
+pid_t pid;
+
+if (args == NULL)
+{
+perror("malloc");
+exit(EXIT_FAILURE);
+}
+args[0] = command;
+args[1] = NULL;
+
+pid = fork();
+
+if (pid == 0)
+{
+execvp(command, args);
+exit(EXIT_FAILURE);
+}
+else if (pid < 0)
+{
+perror("fork");
+exit(EXIT_FAILURE);
+}
+
+waitpid(pid, &status, 0);
+
+result = (WIFEXITED(status) && WEXITSTATUS(status) == 0);
+
+free(args);
+return (result);
+}
+
+/**
+ * print_environment - print
+ */
+void print_environment(void)
+{
+extern char **environ;
+char **env;
+for (env = environ; *env != NULL; env++)
+{
+printf("%s\n", *env);
+}
 }
 
 /**
@@ -16,8 +68,11 @@ fflush(stdout);
  */
 int main(void)
 {
+#define MAX_ARGS 32
+#define MAX_INPUT_SIZE 1024
+size_t arg_count, len;
+char *args[MAX_ARGS];
 char input[MAX_INPUT_SIZE];
-pid_t pid;
 
 while (1)
 {
@@ -26,33 +81,33 @@ display_prompt();
 if (fgets(input, sizeof(input), stdin) == NULL)
 {
 printf("\n");
-break;
+exit(EXIT_SUCCESS); }
+
+len = strlen(input);
+if (len > 0 && input[len - 1] == '\n')
+{
+input[len - 1] = '\0';
 }
 
-input[strcspn(input, "\n")] = '\0';
-
+if (strcmp(input, "env") == 0)
+{
+print_environment();
+continue;
+}
 if (strcmp(input, "exit") == 0)
 {
-break;
-}
+printf("\n");
+exit(EXIT_SUCCESS); }
 
-pid = fork();
+arg_count = 0;
+parse_input(input, args, &arg_count);
 
-if (pid == -1)
+if (!command_exists(args[0]))
 {
-perror("fork");
-exit(EXIT_FAILURE);
+printf("%s: command not found\n", args[0]);
+continue;
 }
-else if (pid == 0)
-{
-if (execlp(input, input, (char *)NULL) == -1)
-{
-perror("execlp");
-exit(EXIT_FAILURE);
-}}
-else
-{
-wait(NULL);
-}}
+execute_command(args);
+}
 return (0);
 }

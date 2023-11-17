@@ -9,7 +9,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <errno.h>
 
+void parse_input(const char *input, char **args, size_t *arg_count);
+void execute_command(char **args);
 size_t _strlen(char *s);
 void print_number(int n);
 int _putchar(char c);
