@@ -11,6 +11,7 @@
 #include <string.h>
 #include <errno.h>
 
+extern char **environ;
 void parse_input(const char *input, char **args, size_t *arg_count);
 void execute_command(char **args);
 size_t _strlen(char *s);

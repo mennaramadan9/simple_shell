@@ -16,7 +16,7 @@ fflush(stdout);
  */
 int command_exists(char *command)
 {
-char **args = malloc(2 * sizeof(char*));
+char **args = malloc(2 * sizeof(char *));
 int status, result;
 pid_t pid;
 
@@ -54,7 +54,6 @@ return (result);
  */
 void print_environment(void)
 {
-extern char **environ;
 char **env;
 for (env = environ; *env != NULL; env++)
 {
@@ -105,9 +104,6 @@ parse_input(input, args, &arg_count);
 if (!command_exists(args[0]))
 {
 printf("%s: command not found\n", args[0]);
-continue;
-}
-execute_command(args);
-}
-return (0);
-}
+continue; }
+execute_command(args); }
+return (0); }

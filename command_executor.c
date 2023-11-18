@@ -10,7 +10,8 @@ pid_t pid;
 int status;
 
 pid = fork();
-if (pid == 0) {
+if (pid == 0)
+{
 if (execvp(args[0], args) == -1)
 {
 perror("shell");
